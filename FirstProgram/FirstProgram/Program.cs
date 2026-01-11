@@ -2,27 +2,49 @@
 
 namespace FirstProgram
 {
-    internal class Program
+    class Program
     {
+        private const int MinValue = 5;
+        private const int MaxValue = 10;
+
         private static void Main(string[] args)
         {
-            Console.Write("Введите первое число: ");
-            int firstNumber = int.Parse(Console.ReadLine());
+            int number = ReadInput();
+            PrintResult(number);
 
-            Console.Write("Введите второе число: ");
-            int secondNumber = int.Parse(Console.ReadLine());
-
-            CompareNumbers(firstNumber, secondNumber);
+            Console.ReadKey();
         }
 
-        private static void CompareNumbers(int firstNumber, int secondNumber)
+        private static int ReadInput()
         {
-            if (firstNumber > secondNumber)
-                Console.WriteLine($"{firstNumber} > {secondNumber}");
-            else if (firstNumber < secondNumber)
-                Console.WriteLine($"{firstNumber} < {secondNumber}");
+            int number;
+
+            Console.Write("Введите число: ");
+
+            while (!int.TryParse(Console.ReadLine(), out number))
+            {
+                Console.Write("Ошибка ввода. Введите целое число: ");
+            }
+
+            return number;
+        }
+
+        private static void PrintResult(int number)
+        {
+            if (IsNumberInRange(number))
+            {
+                Console.WriteLine($"Число {number} больше {MinValue} и меньше {MaxValue}");
+            }
+
             else
-                Console.WriteLine($"{firstNumber} == {secondNumber}");
+            {
+                Console.WriteLine("Неизвестное число");
+            }
+        }
+
+        private static bool IsNumberInRange(int number)
+        {
+            return number > MinValue && number < MaxValue;
         }
     }
 }
